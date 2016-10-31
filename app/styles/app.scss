@@ -5,6 +5,10 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 // Import Bootstrap
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
+@font-face {
+  font-family: 'puppy-text';
+  src: url('../fonts/PuppyBellies.ttf');
+}
 
 *,
 *::before,
@@ -38,6 +42,7 @@ body {
   .header-text{
     text-align: center;
     color: white;
+    font-family: 'puppy-text';
   }
 }
 
