@@ -18,23 +18,32 @@ var AppComponent = React.createClass({
     return {
       collection: imageBoard,
       showForm: false,
+      imageToEdit: false
     };
   },
   addImage: function(imageModel){
     this.state.collection.create(imageModel);
-    this.setState({collection: this.state.collection});
+    this.setState({collection: this.state.collection, showForm: false});
   },
   handleToggerForm: function(e){
     e.preventDefault();
     this.setState({showForm: !this.state.showForm});
   },
-  editImage: function(image){
-    this.setState({imageToEdit: image});
+  handleEdit: function(image){
+    this.setState({showForm: true, imageToEdit: image});
+  },
+  editImage: function(updatedImage){
+    updatedImage.save();
+    this.setState({imageToEdit: false, showForm: false})
+  },
+  removeImage: function(image){
+    image.destroy();
+    this.setState({collection: this.state.collection});
   },
   render: function(){
     var self = this;
     var imageList = this.state.collection.map(function(image){
-      return <ListingComponent key={image.cid} model={image} editImage={self.editImage}></ListingComponent>
+      return <ListingComponent key={image.cid} model={image} editImage={self.editImage} removeImage={self.removeImage} handleEdit={self.handleEdit}></ListingComponent>
     });
 
     return(
@@ -42,7 +51,7 @@ var AppComponent = React.createClass({
         <header className="container-fluid main-header">
           <a href="#" className="add-image" onClick={this.handleToggerForm}><i className="glyphicon glyphicon-plus"></i></a>
         </header>
-        {this.state.showForm ? <FormComponent model={this.state.imageToEdit} addImage={this.addImage}></FormComponent> : null}
+        {this.state.showForm ? <FormComponent model={this.state.imageToEdit} addImage={this.addImage} editImage={this.editImage}></FormComponent> : null}
         {imageList}
       </div>
     );

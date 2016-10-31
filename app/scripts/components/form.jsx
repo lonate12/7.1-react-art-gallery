@@ -3,8 +3,8 @@ var React = require('react');
 var FormComponent = React.createClass({
   getInitialState: function(){
     return {
-      url: '',
-      caption: ''
+      url: this.props.model ? this.props.model.get('url') : '',
+      caption: this.props.model ? this.props.model.get('caption') : ''
     };
   },
   handleUrlChange: function(e){
@@ -22,9 +22,14 @@ var FormComponent = React.createClass({
     e.preventDefault();
     var newImage = {url: this.state.url, caption: this.state.caption};
 
-    this.props.addImage(newImage);
-    // this.props.collection.create(newImage);
-    this.setState({url: '', caption: ''});
+    if(this.props.model){
+      this.props.model.set(newImage);
+      this.setState({url: '', caption: ''});
+      this.props.editImage(this.props.model);
+    }else{
+      this.props.addImage(newImage);
+      this.setState({url: '', caption: ''});
+    };
   },
   render: function(){
     return(
@@ -37,7 +42,7 @@ var FormComponent = React.createClass({
           <label htmlFor="caption">Image Caption</label>
           <input onChange={this.handleCaptionChange} value={this.state.caption} type="text" className="form-control" id="caption" placeholder="Image Caption" />
         </div>
-        <button type="submit" className="btn btn-success">Submit</button>
+        <button type="submit" className="btn btn-success">{this.props.model ? 'Update' : 'Submit'}</button>
       </form>
     );
   }
