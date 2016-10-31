@@ -5758,6 +5758,9 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+@font-face {
+  font-family: 'puppy-text';
+  src: url("../fonts/PuppyBellies.ttf"); }
 *,
 *::before,
 *::after {
@@ -5783,7 +5786,8 @@ body {
     left: 10px; }
   .main-header .header-text {
     text-align: center;
-    color: white; }
+    color: white;
+    font-family: 'puppy-text'; }
 
 .thumbnail {
   margin-top: 10px; }
