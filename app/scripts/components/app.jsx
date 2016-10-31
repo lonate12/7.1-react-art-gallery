@@ -49,7 +49,8 @@ var AppComponent = React.createClass({
     return(
       <div className="container">
         <header className="container-fluid main-header">
-          <a href="#" className="add-image" onClick={this.handleToggerForm}><i className="glyphicon glyphicon-plus"></i></a>
+          <a href="#" title="Click to add image" className="add-image" onClick={this.handleToggerForm}><i className="glyphicon glyphicon-plus"></i></a>
+          <h1 className="header-text">A puppy gallery!</h1>
         </header>
         {this.state.showForm ? <FormComponent model={this.state.imageToEdit} addImage={this.addImage} editImage={this.editImage}></FormComponent> : null}
         {imageList}
